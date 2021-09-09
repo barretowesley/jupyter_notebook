@@ -1,0 +1,24 @@
+version: '3'
+services:
+
+  jupyter_notebook:
+    build: ./
+    image: jupyter_notebook
+    container_name: jupyter
+    hostname: jupyter
+    deploy:
+      resources:
+          limits:
+              memory: '400M'
+    volumes:
+      - "./notebook:/home/jovyan/work"
+      - "./jupyter_notebook_config.json:/home/jovyan/.jupyter/jupyter_notebook_config.json"
+    ports:
+      - "8888:8888"
+    networks:
+      - jupyter
+    security_opt:
+      - label:disable
+
+networks:
+  jupyter:
